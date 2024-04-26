@@ -25,14 +25,20 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-app.post('/post', async (req, res) => {
-  const testBook = new BookModel({
-    name: 'test name',
-    author: 'test author',
-    cost: 3,
-  });
-  await testBook.save();
-  res.send(testBook);
+app.post('/books', async (req, res) => {
+  try {
+    const testBook = {
+      name: 'test name',
+      author: 'test author',
+      cost: 3,
+    };
+    const newlyCreatedBook = await BookModel.create(testBook);
+    // throw new Error('mwahahahaha'); // Testing the catch block
+    return res.status(201).send(newlyCreatedBook);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
 });
 
 app.get('/', (req, res) => {
