@@ -59,6 +59,17 @@ app.get('/books', async (req, res) => {
   }
 });
 
+app.get('/books/:id', async (req, res) => {
+  try {
+    const book = await BookModel.findById(req.params.id);
+    console.log('req.body.id:', req.body.id);
+    return res.status(200).json(book);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 app.get('/', (req, res) => {
   return res.status(234).send('Hello from root');
 });
