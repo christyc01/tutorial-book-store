@@ -70,6 +70,26 @@ app.get('/books/:id', async (req, res) => {
   }
 });
 
+app.put('/books/:id', async (req, res) => {
+  try {
+    if (!req.body.name) {
+      return res.status(400).send({ message: 'Missing a required field' });
+    }
+    const book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    return res
+      .status(200)
+      .json({ message: 'Book updated successfully!', data: book });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 app.get('/', (req, res) => {
   return res.status(234).send('Hello from root');
 });
