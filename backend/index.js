@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { PORT, mongoDBURL } from './config.js';
 
 const app = express();
+app.use(express.json());
 
 const bookSchema = new mongoose.Schema({
   name: {
@@ -27,13 +28,19 @@ mongoose
 
 app.post('/books', async (req, res) => {
   try {
+    if (!req.body.name) {
+      console.log('req.body.name is missing');
+      return res.status(400).send({
+        message: 'Send all required fields',
+      });
+    }
+
     const testBook = {
-      name: 'test name',
-      author: 'test author',
-      cost: 3,
+      name: req.body.name,
+      author: req.body.author,
+      cost: req.body.cost,
     };
     const newlyCreatedBook = await BookModel.create(testBook);
-    // throw new Error('mwahahahaha'); // Testing the catch block
     return res.status(201).send(newlyCreatedBook);
   } catch (error) {
     console.log(error.message);
