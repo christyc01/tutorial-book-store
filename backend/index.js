@@ -48,7 +48,17 @@ app.post('/books', async (req, res) => {
   }
 });
 
+app.get('/books', async (req, res) => {
+  try {
+    const bookList = await BookModel.find({});
+    return res.status(200).json({ count: bookList.length, data: bookList });
+    // throw new Error('mwahaha');
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({ message: error.message });
+  }
+});
+
 app.get('/', (req, res) => {
-  console.log(req);
   return res.status(234).send('Hello from root');
 });
