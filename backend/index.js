@@ -7,17 +7,6 @@ const app = express();
 app.use(express.json());
 app.use('/books', router);
 
-const bookSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  author: String,
-  cost: Number,
-});
-
-const BookModel = mongoose.model('Book', bookSchema);
-
 mongoose
   .connect(mongoDBURL)
   .then(() => {

@@ -1,11 +1,11 @@
 import express from 'express';
+import { BookModel } from '../../models/bookModel.js';
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
     if (!req.body.name) {
-      console.log('req.body.name is missing');
       return res.status(400).send({
         message: 'Send all required fields',
       });
@@ -38,7 +38,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const book = await BookModel.findById(req.params.id);
-    console.log('req.body.id:', req.body.id);
     return res.status(200).json(book);
   } catch (error) {
     console.log(error.message);
