@@ -21,9 +21,17 @@ const Home = () => {
       // }
 
       // Example using .then()
-      fetch('http://localhost:5555/books')
-        .then((res) => res.json())
-        .then((parsedRes) => setData(parsedRes));
+      // fetch('http://localhost:5555/books')
+      //   .then((res) => res.json())
+      //   .then((parsedRes) => setData(parsedRes));
+
+      // Example using Axios
+      axios
+        .get('http://localhost:5555/books')
+        .then((res) => setData(res.data))
+        .catch((error) => {
+          console.log(error);
+        });
     };
     fetchData();
   }, []);
