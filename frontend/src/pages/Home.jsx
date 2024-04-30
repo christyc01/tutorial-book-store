@@ -8,8 +8,10 @@ import Spinner from '../components/Spinner';
 
 const Home = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       // Example using try/catch
       // try {
@@ -28,9 +30,13 @@ const Home = () => {
       // Example using Axios
       axios
         .get('http://localhost:5555/books')
-        .then((res) => setData(res.data))
+        .then((res) => {
+          setData(res.data);
+          setLoading(false);
+        })
         .catch((error) => {
           console.log(error);
+          setLoading(false);
         });
     };
     fetchData();
@@ -44,7 +50,7 @@ const Home = () => {
           <MdOutlineAddBox className="text-sky-800 text-4xl" />
         </Link>
       </div>
-      {!data ? (
+      {loading ? (
         <Spinner />
       ) : (
         <table className="w-full border-separate border-spacing-2">
