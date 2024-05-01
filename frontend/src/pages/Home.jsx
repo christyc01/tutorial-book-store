@@ -74,7 +74,7 @@ const Home = () => {
                 <td className="border border-slate-700 rounded-md text-center">
                   {index + 1}
                 </td>
-                <td>{book.name}</td>
+                <td>{book.title}</td>
                 <td>{book.author}</td>
                 <td>{book.publishYear}</td>
                 <td className="border border-slate-700 rounded-md text-center">
