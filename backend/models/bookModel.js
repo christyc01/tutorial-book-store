@@ -1,12 +1,23 @@
 import mongoose from 'mongoose';
 
-const bookSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const bookSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    publishYear: {
+      type: Number,
+      required: true,
+    },
   },
-  author: String,
-  cost: Number,
-});
+  {
+    timestamps: true,
+  }
+);
 
 export const BookModel = mongoose.model('Book', bookSchema);

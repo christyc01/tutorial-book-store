@@ -5,18 +5,18 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    if (!req.body.name) {
+    if (!req.body.title || !req.body.author || !req.body.publishYear) {
       return res.status(400).send({
         message: 'Send all required fields',
       });
     }
 
-    const testBook = {
-      name: req.body.name,
+    const newBook = {
+      title: req.body.title,
       author: req.body.author,
-      cost: req.body.cost,
+      publishYear: req.body.publishYear,
     };
-    const newlyCreatedBook = await BookModel.create(testBook);
+    const newlyCreatedBook = await BookModel.create(newBook);
     return res.status(201).send(newlyCreatedBook);
   } catch (error) {
     console.log(error.message);
@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    if (!req.body.name) {
+    if (!req.body.title || !req.body.author || !req.body.publishYear) {
       return res.status(400).send({ message: 'Missing a required field' });
     }
     const book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {
