@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBook = () => {
   const [formValues, setFormValues] = useState({
@@ -7,6 +8,8 @@ const CreateBook = () => {
     author: '',
     publishYear: 0,
   });
+
+  const navigate = useNavigate();
 
   const createBook = async (e) => {
     e.preventDefault();
@@ -16,6 +19,8 @@ const CreateBook = () => {
       author: formValues.author,
       publishYear: formValues.publishYear,
     });
+
+    navigate('/');
   };
 
   const handleChange = (e) => {
