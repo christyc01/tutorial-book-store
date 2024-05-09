@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import Spinner from '../components/Spinner';
 
 const CreateBook = () => {
   const [formValues, setFormValues] = useState({
@@ -9,19 +10,31 @@ const CreateBook = () => {
     author: '',
     publishYear: 0,
   });
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const createBook = async (e) => {
+  const createBook = (e) => {
     e.preventDefault();
 
-    await axios.post('http://localhost:5555/books', {
+    const data = {
       title: formValues.title,
       author: formValues.author,
       publishYear: formValues.publishYear,
-    });
+    };
 
-    navigate('/');
+    setLoading(true);
+
+    axios
+      .post('http://localhost:5555/books', data)
+      .then(() => {
+        setLoading(false);
+        navigate('/');
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert('An error occurred - check the console.');
+        console.log(error);
+      });
   };
 
   const handleChange = (e) => {
@@ -34,6 +47,7 @@ const CreateBook = () => {
 
   return (
     <div>
+      {loading ? <Spinner /> : ''}
       <BackButton />
       <h1>Create Book</h1>
       <form onSubmit={createBook}>
