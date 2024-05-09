@@ -2,17 +2,19 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const CreateBook = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState(null);
+  const [formValues, setFormValues] = useState({
+    title: '',
+    author: '',
+    publishYear: 0,
+  });
 
   const createBook = async (e) => {
     e.preventDefault();
 
     await axios.post('http://localhost:5555/books', {
-      title: title,
-      author: author,
-      publishYear: publishYear,
+      title: formValues.title,
+      author: formValues.author,
+      publishYear: formValues.publishYear,
     });
   };
 
@@ -25,9 +27,13 @@ const CreateBook = () => {
           id="title"
           placeholder="Enter title"
           type="text"
-          value={title}
+          value={formValues.title}
           onChange={(e) => {
-            setTitle(e.target.value);
+            const updatedValues = {
+              ...formValues,
+              [e.target.id]: e.target.value,
+            };
+            setFormValues(updatedValues);
           }}
         />
         <label htmlFor="author">Author: </label>
@@ -35,9 +41,13 @@ const CreateBook = () => {
           id="author"
           placeholder="Enter author"
           type="text"
-          value={author}
+          value={formValues.author}
           onChange={(e) => {
-            setAuthor(e.target.value);
+            const updatedValues = {
+              ...formValues,
+              [e.target.id]: e.target.value,
+            };
+            setFormValues(updatedValues);
           }}
         />
         <label htmlFor="publishYear">Publish year: </label>
@@ -45,9 +55,13 @@ const CreateBook = () => {
           id="publishYear"
           placeholder="Enter publish year"
           type="number"
-          value={publishYear}
+          value={formValues.publishYear}
           onChange={(e) => {
-            setPublishYear(e.target.value);
+            const updatedValues = {
+              ...formValues,
+              [e.target.id]: e.target.value,
+            };
+            setFormValues(updatedValues);
           }}
         />
         <button type="submit">Submit Me!</button>
