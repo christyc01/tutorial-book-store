@@ -18,6 +18,14 @@ const CreateBook = () => {
     });
   };
 
+  const handleChange = (e) => {
+    const updatedValues = {
+      ...formValues,
+      [e.target.id]: e.target.value,
+    };
+    setFormValues(updatedValues);
+  };
+
   return (
     <div>
       <h1>Create Book</h1>
@@ -28,13 +36,7 @@ const CreateBook = () => {
           placeholder="Enter title"
           type="text"
           value={formValues.title}
-          onChange={(e) => {
-            const updatedValues = {
-              ...formValues,
-              [e.target.id]: e.target.value,
-            };
-            setFormValues(updatedValues);
-          }}
+          onChange={handleChange}
         />
         <label htmlFor="author">Author: </label>
         <input
@@ -42,13 +44,7 @@ const CreateBook = () => {
           placeholder="Enter author"
           type="text"
           value={formValues.author}
-          onChange={(e) => {
-            const updatedValues = {
-              ...formValues,
-              [e.target.id]: e.target.value,
-            };
-            setFormValues(updatedValues);
-          }}
+          onChange={handleChange}
         />
         <label htmlFor="publishYear">Publish year: </label>
         <input
@@ -56,13 +52,7 @@ const CreateBook = () => {
           placeholder="Enter publish year"
           type="number"
           value={formValues.publishYear}
-          onChange={(e) => {
-            const updatedValues = {
-              ...formValues,
-              [e.target.id]: e.target.value,
-            };
-            setFormValues(updatedValues);
-          }}
+          onChange={handleChange}
         />
         <button type="submit">Submit Me!</button>
       </form>
