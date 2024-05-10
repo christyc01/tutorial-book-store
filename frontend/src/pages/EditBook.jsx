@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import Spinner from '../components/Spinner';
 
 const EditBook = () => {
   const [formValues, setFormValues] = useState({
@@ -9,6 +10,7 @@ const EditBook = () => {
     author: '',
     publishYear: 0,
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -21,9 +23,19 @@ const EditBook = () => {
       publishYear: formValues.publishYear,
     };
 
+    setLoading(true);
+
     axios
       .put(`http://localhost:5555/books/${id}`, data)
-      .then(() => navigate('/'));
+      .then(() => {
+        setLoading(false);
+        navigate('/');
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert('An error occurred - check the console.');
+        console.log(error);
+      });
   };
 
   const handleChange = (e) => {
@@ -45,6 +57,7 @@ const EditBook = () => {
   return (
     <div>
       <BackButton />
+      {loading ? <Spinner /> : ''}
       <h1>Edit Book</h1>
       <form onSubmit={handleEditBook}>
         <label htmlFor="title">Title: </label>
