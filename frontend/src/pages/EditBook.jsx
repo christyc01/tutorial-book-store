@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 
 const EditBook = () => {
@@ -9,6 +9,7 @@ const EditBook = () => {
     author: '',
     publishYear: 0,
   });
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const handleEditBook = (e) => {
@@ -20,7 +21,9 @@ const EditBook = () => {
       publishYear: formValues.publishYear,
     };
 
-    axios.put(`http://localhost:5555/books/${id}`, data);
+    axios
+      .put(`http://localhost:5555/books/${id}`, data)
+      .then(() => navigate('/'));
   };
 
   const handleChange = (e) => {
