@@ -47,9 +47,19 @@ const EditBook = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
-      const bookData = await axios.get(`http://localhost:5555/books/${id}`);
-      setFormValues(bookData.data);
+      await axios
+        .get(`http://localhost:5555/books/${id}`)
+        .then((response) => {
+          setFormValues(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert('An error happened. Please Chack console');
+          console.log(error);
+        });
     };
     fetchData();
   }, []);
