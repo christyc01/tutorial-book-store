@@ -8,12 +8,15 @@ const DeleteBook = () => {
 
   const handleDelete = () => {
     console.log('deleting', id);
-    axios.delete(`http://localhost:5555/books/${id}`).then(() => {
-      navigate('/').catch((error) => {
+    axios
+      .delete(`http://localhost:5555/books/${id}`)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
         alert('An error occurred - check the console.');
         console.log(error);
       });
-    });
   };
 
   return (
