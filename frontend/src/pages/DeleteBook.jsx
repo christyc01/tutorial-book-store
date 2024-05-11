@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Spinner from '../components/Spinner';
+import BackButton from '../components/BackButton';
 
 const DeleteBook = () => {
   const { id } = useParams();
@@ -27,6 +28,7 @@ const DeleteBook = () => {
 
   return (
     <div>
+      <BackButton />
       {loading ? <Spinner /> : ''}
       <h1>Delete Book</h1>
       <button onClick={handleDelete}>Delete</button>
