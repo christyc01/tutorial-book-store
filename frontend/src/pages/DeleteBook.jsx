@@ -8,8 +8,9 @@ const DeleteBook = () => {
 
   const handleDelete = () => {
     console.log('deleting', id);
-    axios.delete(`http://localhost:5555/books/${id}`);
-    navigate('/');
+    axios.delete(`http://localhost:5555/books/${id}`).then(() => {
+      navigate('/');
+    });
   };
 
   return (
