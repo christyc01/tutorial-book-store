@@ -9,6 +9,7 @@ import Spinner from '../components/Spinner';
 const Home = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [view, setView] = useState('table');
 
   useEffect(() => {
     setLoading(true);
@@ -46,12 +47,27 @@ const Home = () => {
     <div className="p-4">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl my-8">Books List</h1>
+        <div className="flex gap-4">
+          <button
+            onClick={() => setView('table')}
+            className="p-6 bg-red-300 rounded-lg"
+          >
+            Table
+          </button>
+          <button
+            onClick={() => setView('card')}
+            className="p-6 bg-blue-300 rounded-lg"
+          >
+            Card
+          </button>
+        </div>
         <Link to="/books/create">
           <MdOutlineAddBox className="text-sky-800 text-4xl" />
         </Link>
       </div>
-      {loading ? (
-        <Spinner />
+      {loading ? <Spinner /> : ''}
+      {view === 'card' ? (
+        <h1>Card</h1>
       ) : (
         <table className="w-full border-separate border-spacing-2">
           <thead>
