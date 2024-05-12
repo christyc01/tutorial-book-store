@@ -66,7 +66,7 @@ const Home = () => {
         </Link>
       </div>
       {loading ? <Spinner /> : ''}
-      {view === 'card' ? <BooksCard /> : <BooksTable data={data} />}
+      {view === 'card' ? <BooksCard data={data} /> : <BooksTable data={data} />}
     </div>
   );
 };
