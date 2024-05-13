@@ -6,6 +6,7 @@ import { BiUserCircle } from 'react-icons/bi';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import BookModal from './BookModal';
 
 const BookSingleCard = ({ book }) => {
   return (
@@ -36,6 +37,7 @@ const BookSingleCard = ({ book }) => {
           <MdOutlineDelete className="text-2xl text-red-600" />
         </Link>
       </div>
+      <BookModal book={book} />
     </div>
   );
 };
