@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const BooksCard = ({ data }) => {
   return (
     <div>
-      {data.data.map((book) => (
+      {data.map((book) => (
         <div key={book._id} className="border-2 rounded-sm">
           <p>id: {book._id}</p>
           <p>title: {book.title}</p>

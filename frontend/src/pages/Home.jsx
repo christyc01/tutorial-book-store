@@ -7,7 +7,7 @@ import BooksCard from '../components/home/BooksCard';
 import BooksTable from '../components/home/BooksTable';
 
 const Home = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState('table');
 
@@ -32,7 +32,7 @@ const Home = () => {
       axios
         .get('http://localhost:5555/books')
         .then((res) => {
-          setData(res.data);
+          setData(res.data.data);
           setLoading(false);
         })
         .catch((error) => {
