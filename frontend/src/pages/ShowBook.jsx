@@ -16,7 +16,6 @@ const ShowBook = () => {
         .get(`http://localhost:5555/books/${id}`)
         .then((response) => {
           setBook(response.data);
-          console.log('response:', response.data);
           setLoading(false);
         })
         .catch((error) => {
